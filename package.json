@@ -1,0 +1,19 @@
+{
+  "name": "politico",
+  "version": "1.0.0",
+  "description": "A platform for user to vote and politician to apply for a political office",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbozee/politico.git"
+  },
+  "author": "Biola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gbozee/politico/issues"
+  },
+  "homepage": "https://github.com/gbozee/politico#readme"
+}

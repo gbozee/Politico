@@ -4,7 +4,7 @@
   "description": "A platform for user to vote and politician to apply for a political office",
   "main": "api/index.js",
   "scripts": {
-   "test": "mocha ./api/tests --recursive"
+    "test": "mocha ./api/tests --recursive"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   "homepage": "https://github.com/gbozee/politico#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.15.0",

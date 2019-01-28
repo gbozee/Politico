@@ -1,0 +1,31 @@
+{
+  "name": "politico",
+  "version": "1.0.0",
+  "description": "A platform for user to vote and politician to apply for a political office",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "mocha ./api/tests --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbozee/politico.git"
+  },
+  "author": "Biola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gbozee/politico/issues"
+  },
+  "homepage": "https://github.com/gbozee/politico#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.15.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.3"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

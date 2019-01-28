@@ -4,5 +4,3 @@ node_js:
 script:
   - npm ci
   - npm test
-after_success:
-  - coveralls

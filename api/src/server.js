@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 const version = 'v1';
 
-const parties = [];
+let parties = [];
 const requiredFields = ['name'];
 const baseUrl = `/api/${version}`;
 app.post(`${baseUrl}/parties`, (req, res) => {
@@ -45,7 +45,6 @@ app.post(`${baseUrl}/parties`, (req, res) => {
   }
 });
 
-
 app.get(`${baseUrl}/parties`, (req, res) => {
   res.status(200).json({ status: 200, data: parties });
 });
@@ -61,6 +60,20 @@ app.get(`${baseUrl}/parties/:partyId`, (req, res) => {
   }
 });
 
+app.patch(`${baseUrl}/parties/:partyId/:name`, (req, res) => {
+  const { partyId, name } = req.params;
+  const foundParty = parties.find(party => party.id === parseInt(partyId, 10));
+  if (foundParty) {
+    foundParty.name = name;
+    parties = parties.map(party => (party.id === parseInt(partyId, 10) ? foundParty : party));
+    res.status(200).json({
+      status: 200,
+      data: foundParty,
+    });
+  } else {
+    res.status(404).json({ status: 404, error: 'Party not found' });
+  }
+});
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console

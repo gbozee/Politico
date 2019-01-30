@@ -4,7 +4,8 @@
   "description": "A platform for user to vote and politician to apply for a political office",
   "main": "api/index.js",
   "scripts": {
-    "test": "mocha ./api/tests --exit",
+    "test": "nyc mocha ./api/tests --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint api",
     "start": "nodemon api/src/server.js"
   },
@@ -24,13 +25,23 @@
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.15.0",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.18.9",
+    "nyc": "^13.1.0",
     "sinon": "^7.2.3",
     "supertest": "^3.4.2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
+  },
+  "nyc":{
+    "include": [
+      "api/src/**/*.js"
+    ],
+    "check-coverage": true,
+    "per-file": true
   }
 }

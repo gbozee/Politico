@@ -131,6 +131,17 @@ app.get(`${baseUrl}/offices`, (req, res) => {
   res.status(200).json({ status: 200, data: offices });
 });
 
+app.get(`${baseUrl}/offices/:officeId`, (req, res) => {
+  const foundOffice = offices.find(
+    office => office.id === parseInt(req.params.officeId, 10),
+  );
+  if (foundOffice) {
+    res.status(200).json({ status: 200, data: foundOffice });
+  } else {
+    res.status(404).json({ status: 404, error: 'Office not found' });
+  }
+});
+
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
   console.log('Listening on port 3000');

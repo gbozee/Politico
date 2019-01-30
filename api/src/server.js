@@ -75,6 +75,25 @@ app.patch(`${baseUrl}/parties/:partyId/:name`, (req, res) => {
   }
 });
 
+app.delete(`${baseUrl}/parties/:partyId`, (req, res) => {
+  const partyId = parseInt(req.params.partyId, 10);
+  const foundParty = parties.find(party => party.id === partyId);
+  if (foundParty) {
+    parties = parties.filter(party => party.id !== partyId);
+    res.status(202).json({
+      status: 202,
+      data: {
+        message: 'Party successfully deleted',
+      },
+    });
+  } else {
+    res.status(404).json({
+      status: 404,
+      error: 'Party not found',
+    });
+  }
+});
+
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
   console.log('Listening on port 3000');

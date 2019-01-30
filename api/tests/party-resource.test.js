@@ -136,4 +136,35 @@ describe('Political party resource', () => {
       });
     });
   });
+  describe('DELETE /parties/1', () => {
+    it('should delete the party based on the id passed', () => {
+      request(app).delete(`${url}/1`).end((err, res) => {
+        expect(res.statusCode).to.equal(202);
+        expect(res.body).to.deep.equal({
+          status: 202,
+          data: {
+            message: 'Party successfully deleted',
+          },
+        });
+      });
+    });
+    it('trying to get a deleted party should return 404', () => {
+      request(app).delete(`${url}/1`).end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.deep.equal({
+          status: 404,
+          error: 'Party not found',
+        });
+      });
+    });
+    it('trying to deleta a non existent party should throw a 404 not found', () => {
+      request(app).delete(`${url}/1`).end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.deep.equal({
+          status: 404,
+          error: 'Party not found',
+        });
+      });
+    });
+  });
 });

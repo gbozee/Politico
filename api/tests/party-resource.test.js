@@ -1,13 +1,11 @@
-/* eslint-disable func-names */
-/* eslint-disable prefer-arrow-callback */
 const { expect } = require('chai');
 const request = require('supertest');
 const app = require('../src/server');
 
-describe('Political party resource', function () {
+describe('Political party resource', () => {
   const url = '/api/v1/parties';
-  describe('POST /parties', function () {
-    it('when a party is successfully created', function (done) {
+  describe('POST /parties', () => {
+    it('when a party is successfully created', (done) => {
       const partyDetails = {
         name: 'PDP',
         hqAddress: 'Abuja',
@@ -31,7 +29,7 @@ describe('Political party resource', function () {
           done();
         });
     });
-    it('When a second party is added', function (done) {
+    it('When a second party is added', (done) => {
       request(app)
         .post(url)
         .send({ name: 'APC', hqAddress: 'Lagos', logoUrl: 'http://facebook.com' })
@@ -50,7 +48,7 @@ describe('Political party resource', function () {
           done();
         });
     });
-    it("when a party wasn't successfully created", function (done) {
+    it("when a party wasn't successfully created", (done) => {
       const partyDetail = {
         hqAddress: 'Abuja',
         logoUrl: 'http://www.google.com',
@@ -65,8 +63,8 @@ describe('Political party resource', function () {
       });
     });
   });
-  describe('GET /parties', function () {
-    it('returns all the political parties created', function (done) {
+  describe('GET /parties', () => {
+    it('returns all the political parties created', (done) => {
       request(app).get(url).end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.deep.equal({
@@ -86,8 +84,8 @@ describe('Political party resource', function () {
       });
     });
   });
-  describe('GET /parties/1', function () {
-    it('returns the party by the id provided in the url', function (done) {
+  describe('GET /parties/1', () => {
+    it('returns the party by the id provided in the url', (done) => {
       request(app).get(`${url}/1`).end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.deep.equal({
@@ -102,7 +100,7 @@ describe('Political party resource', function () {
         done();
       });
     });
-    it("returns an error when the id passed in the url doesn't exists", function (done) {
+    it("returns an error when the id passed in the url doesn't exists", (done) => {
       request(app).get(`${url}/3`).end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body).to.deep.equal({
@@ -110,6 +108,31 @@ describe('Political party resource', function () {
           error: 'Party not found',
         });
         done();
+      });
+    });
+  });
+  describe('PATCH /parties/2/name', () => {
+    it('should change the name of the party', () => {
+      request(app).patch(`${url}/2/AD`).end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.deep.equal({
+          status: 200,
+          data: {
+            id: 2,
+            name: 'AD',
+            hqAddress: 'Lagos',
+            logoUrl: 'http://facebook.com',
+          },
+        });
+      });
+    });
+    it("should return an error when the party id doesn't exists", () => {
+      request(app).patch(`${url}/3/ANPP`).end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.deep.equal({
+          status: 404,
+          error: 'Party not found',
+        });
       });
     });
   });

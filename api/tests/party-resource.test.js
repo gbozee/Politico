@@ -59,7 +59,7 @@ describe('Political party resource', function () {
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.deep.equal({
           status: 400,
-          data: 'The name of the party is missing',
+          error: 'The name of the party is missing',
         });
         done();
       });
@@ -81,6 +81,33 @@ describe('Political party resource', function () {
             id: 2, name: 'APC', hqAddress: 'Lagos', logoUrl: 'http://facebook.com',
           },
           ],
+        });
+        done();
+      });
+    });
+  });
+  describe('GET /parties/1', function () {
+    it('returns the party by the id provided in the url', function (done) {
+      request(app).get(`${url}/1`).end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.deep.equal({
+          status: 200,
+          data: {
+            id: 1,
+            name: 'PDP',
+            hqAddress: 'Abuja',
+            logoUrl: 'http://www.google.com',
+          },
+        });
+        done();
+      });
+    });
+    it("returns an error when the id passed in the url doesn't exists", function (done) {
+      request(app).get(`${url}/3`).end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.deep.equal({
+          status: 404,
+          error: 'Party not found',
         });
         done();
       });

@@ -12,8 +12,8 @@ const version = 'v1';
 
 const parties = [];
 const requiredFields = ['name'];
-
-app.post(`/api/${version}/parties`, (req, res) => {
+const baseUrl = `/api/${version}`;
+app.post(`${baseUrl}/parties`, (req, res) => {
   const { body } = req;
   let isValid = true;
   const keys = Object.keys(body);
@@ -41,6 +41,10 @@ app.post(`/api/${version}/parties`, (req, res) => {
       data: `The ${missingKeys[0]} of the party is missing`,
     });
   }
+});
+
+app.get(`${baseUrl}/parties`, (req, res) => {
+  res.status(200).json({ status: 200, data: parties });
 });
 
 app.listen(3000, () => {

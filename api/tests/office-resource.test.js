@@ -71,4 +71,30 @@ describe('Office resource', () => {
       });
     });
   });
+  describe('GET /offices/1', () => {
+    it('returns the office by the id provided in the url', (done) => {
+      request(app).get(`${url}/1`).end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.deep.equal({
+          status: 200,
+          data: {
+            id: 1,
+            name: 'President',
+            type: 'federal',
+          },
+        });
+        done();
+      });
+    });
+    it("returns an error when the id passed in the url doesn't exists", (done) => {
+      request(app).get(`${url}/3`).end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.deep.equal({
+          status: 404,
+          error: 'Office not found',
+        });
+        done();
+      });
+    });
+  });
 });

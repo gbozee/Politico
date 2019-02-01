@@ -1,13 +1,17 @@
 const express = require('express');
 
 const middlewares = require('./middlewares');
-const routes = require('./routes');
+
+const partyRoutes = require('./routes/party');
+const officeRoutes = require('./routes/office');
 
 const app = express();
 
 app.use(...middlewares); // for parsing application/json
 
-app.use('/api/v1', routes);
+const baseUrl = '/api/v1';
+app.use(`${baseUrl}/parties`, partyRoutes);
+app.use(`${baseUrl}/offices`, officeRoutes);
 
 
 app.listen(3000, () => {

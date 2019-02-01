@@ -1,14 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+
+const middlewares = require('./middlewares');
 const routes = require('./routes');
 
 const app = express();
 
-app.use(bodyParser.json()); // for parsing application/json
+app.use(...middlewares); // for parsing application/json
 
-const version = 'v1';
-
-app.use(`/api/${version}`, routes);
+app.use('/api/v1', routes);
 
 
 app.listen(3000, () => {
